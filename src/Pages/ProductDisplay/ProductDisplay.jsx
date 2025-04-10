@@ -17,20 +17,20 @@ const ProductDisplay = (props) => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    addRecentlyViewedProduct(product); // Add the product to the recently viewed list
+    addRecentlyViewedProduct(product);
     if (!thumbnails.includes(mainImage)) {
-      setMainImage(thumbnails[0]); // Reset the main image when the product changes and mainImage is not in thumbnails
+      setMainImage(thumbnails[0]);
     }
   }, [product, thumbnails, mainImage]);
 
   const zoomConfig = {
-    width: 500,
-    height: 600,
-    zoomWidth: 1000,
+    width: 400,
+    height: 500,
+    zoomWidth: 500,
     scale: 0.5,
     img: mainImage,
-    zoomStyle: "border: 1px solid #ccc; border-radius: 10px;", // Add custom styles
-    zoomLensStyle: "opacity: 0.4; background-color: white;", // Customize the zoom lens style
+    zoomStyle: "border: 1px solid #ccc; border-radius: 10px;",
+    zoomLensStyle: "opacity: 0.4; background-color: white;",
   };
 
   window.onbeforeunload = function () {
@@ -75,12 +75,12 @@ const ProductDisplay = (props) => {
       className="flex flex-col lg:flex-row mt-10 ml-0 lg:ml-[170px] mb-10 px-4"
     >
       <div className="flex flex-col lg:flex-row gap-4 mb-4 lg:mb-0">
-        {/* 4 hình nhỏ kế bên main image */}
+        {/* Thumbnails */}
         <div className="hidden sm:flex flex-col gap-4">
           {thumbnails.map((url, index) => (
             <img
               key={index}
-              className={`h-[120px] object-cover cursor-pointer ${
+              className={`h-[100px] sm:h-[120px] object-cover cursor-pointer ${
                 url === mainImage ? "selected-thumbnail" : ""
               }`}
               src={url}
@@ -98,15 +98,12 @@ const ProductDisplay = (props) => {
       </div>
 
       {/* Product information */}
-      <div className="mt-0 ml-[70px] flex flex-col w-full lg:w-auto">
-        {/* Title and detailed section */}
-        <h1 className="font-bold text-2xl lg:text-[30px] mb-4">
+      <div className="mt-4 lg:mt-0 lg:ml-10 flex flex-col w-full lg:w-auto">
+        <h1 className="font-bold text-2xl lg:text-3xl mb-4">
           {product.Product.Brand.name}
         </h1>
-        <h2 className="font-regular text-base lg:text-[16px]">
-          SKU: {product.sku_no}
-        </h2>
-        <h2 className="font-semibold text-xl lg:text-[20px] mt-4">
+        <h2 className="text-base lg:text-lg">SKU: {product.sku_no}</h2>
+        <h2 className="font-semibold text-xl lg:text-2xl mt-4">
           {product.Product.product_name}
         </h2>
 
@@ -122,7 +119,7 @@ const ProductDisplay = (props) => {
           <div className="text-gray-500 line-through mr-2">
             {product.oldPrice}
           </div>
-          <div className="text-red-500 text-xl font-bold">
+          <div className="text-red-500 text-xl lg:text-2xl font-bold">
             {formatNumber(product.Product.product_price)}{" "}
             <span lang="vi">đ</span>
           </div>
@@ -131,10 +128,7 @@ const ProductDisplay = (props) => {
         <div className="mt-4">Size: {product.sku_size}</div>
 
         {/* Quantity input */}
-        <div
-          className="bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700 my-10"
-          data-hs-input-number=""
-        >
+        <div className="bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700 my-10">
           <div className="w-full flex justify-between items-center gap-x-1">
             <div className="grow py-2 px-3">
               <span className="block text-xs text-gray-500 dark:text-neutral-400">
@@ -196,7 +190,7 @@ const ProductDisplay = (props) => {
         </div>
 
         {/* ADD TO CART button */}
-        <div className="flex flex-col justify-center mr-[75px] mt-2">
+        <div className="flex flex-col justify-center mr-0 lg:mr-[75px] mt-2">
           {isOutOfStock ? (
             <>
               <button className="w-full sm:w-[300px] text-[18px] h-14 font-semibold text-gray-600 bg-gray-300 cursor-not-allowed">
